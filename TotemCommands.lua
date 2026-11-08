@@ -12,7 +12,8 @@
 local ADDON_NAME = ...;
 
 local RECALL_SPELL_ID = 36936;
-local TOTEMIC_CALL_NAME = "Totemic Call";
+-- The totem-move spell has gone by both names; whichever is in the spellbook is used.
+local MOVE_SPELL_NAMES = { "Totemic Projection", "Totemic Call" };
 local CALL_SPELL_IDS = { 66842, 66843, 66844 }; -- Call of the Elements / Ancestors / Spirits
 local DEFAULT_HOLD_TICKS, DEFAULT_HOLD2_TICKS = 3, 7;
 local MIN_HOLD_TICKS, MAX_HOLD_TICKS = 2, 6;
@@ -148,10 +149,21 @@ local function GetHold2Ticks()
 	return math.max((TotemCommandsDB and TotemCommandsDB.hold2Ticks) or DEFAULT_HOLD2_TICKS, GetHoldTicks() + 2);
 end
 
--- Totemic Call's ID isn't a known constant, so find it by name in the spellbook.
+-- The totem-move spell's ID isn't a known constant, so find it by name in the spellbook.
 local function FindTotemicCall()
-	local info = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo(TOTEMIC_CALL_NAME);
-	return info and info.spellID or nil;
+	for _, name in ipairs(MOVE_SPELL_NAMES) do
+		local info = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo(name);
+		if info and info.spellID then
+			return info.spellID;
+		end
+	end
+	return nil;
+end
+
+-- Name to show for the move spell: whatever the spellbook calls it.
+local function GetMoveSpellName()
+	local spellID = header:GetAttribute("callSpell");
+	return (spellID and C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(spellID)) or MOVE_SPELL_NAMES[1];
 end
 
 local function GetPageUnit()
@@ -266,7 +278,7 @@ feedback:SetScript("OnUpdate", function()
 		elseif stage == 2 then
 			Rumble();
 			C_Timer.After(DOUBLE_RUMBLE_GAP, Rumble);
-			UIErrorsFrame:AddMessage("Release for Totemic Call", 0.4, 0.8, 1);
+			UIErrorsFrame:AddMessage("Release for " .. GetMoveSpellName(), 0.4, 0.8, 1);
 		end
 	end
 	lastStage = stage;
@@ -283,7 +295,7 @@ end
 
 local function RunTest()
 	Print("spells: " .. SpellLine(CALL_SPELL_IDS[1]) .. ", " .. SpellLine(RECALL_SPELL_ID) .. ", "
-		.. SpellLine(FindTotemicCall(), TOTEMIC_CALL_NAME));
+		.. SpellLine(FindTotemicCall(), table.concat(MOVE_SPELL_NAMES, " / ")));
 
 	local slots = {};
 	for _, info in ipairs(GetCrossbarButtons()) do
@@ -385,14 +397,14 @@ SlashCmdList.TOTEMCOMMANDS = function(msg)
 			for _ in pairs(wrapped) do
 				count = count + 1;
 			end
-			Print(("on - %d crossbar buttons hooked. Tap Call of the Elements to cast it, hold %d ticks for Totemic Recall, %d for Totemic Call%s."):format(
-				count, GetHoldTicks(), GetHold2Ticks(), header:GetAttribute("callSpell") and "" or " (not found - Recall only)"));
+			Print(("on - %d crossbar buttons hooked. Tap Call of the Elements to cast it, hold %d ticks for Totemic Recall, %d for %s%s."):format(
+				count, GetHoldTicks(), GetHold2Ticks(), GetMoveSpellName(), header:GetAttribute("callSpell") and "" or " (not found - Recall only)"));
 		else
 			Print("off - crossbar buttons behave normally.");
 		end
 		return;
 	end
-	Print(("enabled=%s, hold=%d, hold2=%d, Totemic Call=%s, ticks so far=%s. Commands: test, on, off, hold <%d-%d>, hold2 <n>"):format(
+	Print(("enabled=%s, hold=%d, hold2=%d, move spell=%s, ticks so far=%s. Commands: test, on, off, hold <%d-%d>, hold2 <n>"):format(
 		tostring(header:GetAttribute("enabled")), GetHoldTicks(), GetHold2Ticks(), tostring(header:GetAttribute("callSpell")),
 		tostring(header:GetAttribute("tickcount")), MIN_HOLD_TICKS, MAX_HOLD_TICKS));
 end;

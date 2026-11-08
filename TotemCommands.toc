@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Title: Totem Commands
-## Notes: Crossbar Call of the Elements: tap to cast, hold for Totemic Recall, keep holding for Totemic Call.
+## Notes: Crossbar Call of the Elements: tap to cast, hold for Totemic Recall, keep holding for Totemic Projection.
 ## Author: Catmemes
 ## Version: @project-version@
 ## SavedVariables: TotemCommandsDB
