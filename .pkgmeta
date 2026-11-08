@@ -1,0 +1,6 @@
+package-as: TotemCommands
+
+manual-changelog: CHANGELOG.md
+
+ignore:
+  - README.md

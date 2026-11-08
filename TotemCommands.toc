@@ -1,0 +1,11 @@
+## Interface: 16001
+## Title: Totem Commands
+## Notes: Crossbar Call of the Elements: tap to cast, hold for Totemic Recall, keep holding for Totemic Call.
+## Author: Catmemes
+## Version: @project-version@
+## SavedVariables: TotemCommandsDB
+## IconTexture: Interface\AddOns\TotemCommands\Icon
+## X-License: MIT
+## X-Website: https://github.com/sememtac/TotemCommands
+
+TotemCommands.lua
