@@ -12,8 +12,8 @@
 local ADDON_NAME = ...;
 
 local RECALL_SPELL_ID = 36936;
--- The totem-move spell has gone by both names; whichever is in the spellbook is used.
-local MOVE_SPELL_NAMES = { "Totemic Projection", "Totemic Call" };
+-- Totemic Call moves your totems to where you are standing.
+local MOVE_SPELL_NAMES = { "Totemic Call" };
 local CALL_SPELL_IDS = { 66842, 66843, 66844 }; -- Call of the Elements / Ancestors / Spirits
 local DEFAULT_HOLD_TICKS, DEFAULT_HOLD2_TICKS = 3, 7;
 local MIN_HOLD_TICKS, MAX_HOLD_TICKS = 2, 6;

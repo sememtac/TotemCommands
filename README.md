@@ -8,7 +8,7 @@ Put **Call of the Elements** on any crossbar slot, and that button now does thre
 |---|---|---|
 | **Tap** | nothing | Call of the Elements |
 | **Hold** (~0.5 s) | a rumble, "Release for Totemic Recall" | Totemic Recall |
-| **Keep holding** (~1.4 s) | a double rumble, "Release for Totemic Projection" | Totemic Projection |
+| **Keep holding** (~1.4 s) | a double rumble, "Release for Totemic Call" | Totemic Call |
 
 Nothing is cast until you let go, so you can hold past a stage you don't want. Every other slot on your
 crossbar works exactly as before.
@@ -27,7 +27,7 @@ crossbar works exactly as before.
 | `/totemcommands test` | Check spells, the Call of the Elements slot and the hold timing |
 | `/totemcommands on` / `off` | Turn it on or off. `off` returns your buttons to normal immediately |
 | `/totemcommands hold 4` | Hold length for Totemic Recall, in steps of about 0.2 s (2–6, default 3) |
-| `/totemcommands hold2 9` | Hold length for Totemic Projection (default 7) |
+| `/totemcommands hold2 9` | Hold length for Totemic Call (default 7) |
 | `/totemcommands debug` | Print where each crossbar press goes (for troubleshooting) |
 
 ## Good to know
@@ -35,8 +35,7 @@ crossbar works exactly as before.
 - **Taps cast on release** rather than on press, so a tap has a tiny delay compared with a normal button.
 - **Hold timing is approximate.** Secure game code has no clock, so the hold is counted in game updates
   of about 0.2 s; it can arm slightly early in very busy combat. Use `hold`/`hold2` to lengthen it.
-- **Totemic Projection is found by name** (it also recognizes the name Totemic Call), so on non-English
-  clients the long hold falls back to Totemic Recall.
+- **Totemic Call is found by name**, so on non-English clients the long hold falls back to Totemic Recall.
 - Settings can only be changed out of combat. The tap/hold itself works in combat.
 
 ## How it works
