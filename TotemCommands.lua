@@ -337,6 +337,16 @@ frame:SetScript("OnEvent", function(self, event, ...)
 				self.pendingApply = true;
 			end
 		end);
+		-- Totem Commands has grown into Gesture Commands: say so once per account.
+		if TotemCommandsDB and not TotemCommandsDB.gestureCommandsNoticeShown then
+			TotemCommandsDB.gestureCommandsNoticeShown = true;
+			C_Timer.After(8, function()
+				local hasGestureCommands = C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("GestureCommands");
+				Print(hasGestureCommands
+					and "has grown into Gesture Commands, which you have: open /gestures and press Switch from Totem Commands to move your totem button over."
+					or "has grown into Gesture Commands - the same tap / hold / long-hold for any spell, item or macro, with a setup window and full controller support. Totem Commands keeps working but won't get new features; get Gesture Commands on CurseForge.");
+			end);
+		end
 	elseif event == "SPELLS_CHANGED" then
 		-- Learning Totemic Call (or the spellbook loading late) updates its ID for the secure code.
 		if TotemCommandsDB and FindTotemicCall() ~= header:GetAttribute("callSpell") then
