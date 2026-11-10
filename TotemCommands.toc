@@ -7,5 +7,6 @@
 ## IconTexture: Interface\AddOns\TotemCommands\Icon
 ## X-License: MIT
 ## X-Website: https://github.com/sememtac/TotemCommands
+## X-Curse-Project-ID: 1791650
 
 TotemCommands.lua
