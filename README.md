@@ -1,7 +1,7 @@
 # Totem Commands
 
 > **Totem Commands has grown into [Gesture Commands](https://github.com/sememtac/GestureCommands).** It does
-> the same tap / hold / long-hold for any spell, item or macro on your crossbar, with a setup window and
+> the same tap / hold / long-hold for anything on your crossbar, with a setup window and
 > full controller support. Install it, open `/gestures` and press **Switch from Totem Commands** - it sets
 > up this same totem button and turns Totem Commands off. Totem Commands keeps working, but won't get new
 > features.
